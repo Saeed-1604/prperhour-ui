@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جميع الرسائل - لوحة التحكم</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; }
+        
+        header { background: white; padding: 20px; border-bottom: 1px solid #f0f0f0; }
+        h1 { color: #333; font-size: 24px; margin-bottom: 10px; }
+        .back-link { color: #C4860B; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 10px; }
+        .back-link:hover { text-decoration: underline; }
+        .back-link:before { content: "← "; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #C4860B; color: white; padding: 15px; text-align: right; font-weight: 600; }
+        td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
+        tr:hover { background: #f9f9f9; }
+        
+        .status-unread { background: #fff3cd; color: #856404; padding: 5px 10px; border-radius: 5px; font-size: 12px; display: inline-block; }
+        .status-read { background: #d4edda; color: #155724; padding: 5px 10px; border-radius: 5px; font-size: 12px; display: inline-block; }
+        
+        .message-preview { color: #666; font-size: 13px; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn { padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #C4860B; color: white; }
+        .btn-primary:hover { background: #8B5D00; }
+        .btn-secondary { background: #f0f0f0; color: #333; }
+        .btn-secondary:hover { background: #e0e0e0; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; }
+        
+        .empty { text-align: center; padding: 40px; color: #999; background: white; border-radius: 10px; margin: 20px; }
+        
+        .pagination { margin-top: 20px; text-align: center; padding: 20px; border-top: 1px solid #f0f0f0; }
+        .pagination a, .pagination span { display: inline-block; padding: 8px 12px; margin: 0 5px; border-radius: 5px; }
+        .pagination a { background: #C4860B; color: white; text-decoration: none; }
+        .pagination a:hover { background: #8B5D00; }
+        .pagination .active { background: #333; color: white; }
+        
+        @media (max-width: 768px) {
+            .container { overflow-x: auto; }
+            table { min-width: 900px; }
+            .actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="dashboard.html" class="back-link">العودة إلى لوحة التحكم</a>
+            <h1>جميع الرسائل</h1>
+        </header>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>الموضوع</th>
+                    <th>الرسالة</th>
+                    <th>الحالة</th>
+                    <th>التاريخ</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="message-1">
+                    <td>أحمد محمد</td>
+                    <td>ahmed@example.com</td>
+                    <td>استفسار عن خدمة استشارية</td>
+                    <td class="message-preview">السلام عليكم، أود الاستفسار عن إمكانية الحصول على استشارة في مجال العلاقات العامة...</td>
+                    <td><span class="status-unread" id="status-1">غير مقروءة</span></td>
+                    <td>20/03/2026 10:30</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="markAsRead(1)">تعليم كمقروءة</button>
+                            <button class="btn btn-danger" onclick="deleteMessage(1)">حذف</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="message-2">
+                    <td>سارة علي</td>
+                    <td>sara@example.com</td>
+                    <td>طلب تعاون</td>
+                    <td class="message-preview">أنا مهتمة بالتعاون معكم في مشروع تطوير علامتي التجارية، هل يمكننا تحديد موعد...</td>
+                    <td><span class="status-read" id="status-2">مقروءة</span></td>
+                    <td>19/03/2026 15:45</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn btn-secondary" onclick="markAsUnread(2)">تعليم كغير مقروءة</button>
+                            <button class="btn btn-danger" onclick="deleteMessage(2)">حذف</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="message-3">
+                    <td>محمد حسن</td>
+                    <td>mohamed@example.com</td>
+                    <td>استفسار عن الأسعار</td>
+                    <td class="message-preview">أود معرفة الأسعار التفصيلية لباقة المحتوى الأساسية، وهل هناك خصومات للطلبات المتعددة...</td>
+                    <td><span class="status-unread" id="status-3">غير مقروءة</span></td>
+                    <td>19/03/2026 09:15</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="markAsRead(3)">تعليم كمقروءة</button>
+                            <button class="btn btn-danger" onclick="deleteMessage(3)">حذف</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="message-4">
+                    <td>نورا أحمد</td>
+                    <td>noura@example.com</td>
+                    <td>شكر وتقدير</td>
+                    <td class="message-preview">أشكركم على الخدمة الرائعة، كانت تجربة ممتازة وسأتعامل معكم مرة أخرى بالتأكيد...</td>
+                    <td><span class="status-read" id="status-4">مقروءة</span></td>
+                    <td>18/03/2026 14:20</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn btn-secondary" onclick="markAsUnread(4)">تعليم كغير مقروءة</button>
+                            <button class="btn btn-danger" onclick="deleteMessage(4)">حذف</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="message-5">
+                    <td>خالد عمر</td>
+                    <td>khalid@example.com</td>
+                    <td>مشكلة في الدفع</td>
+                    <td class="message-preview">واجهت مشكلة أثناء محاولة الدفع عبر بنك فلسطين، لم يتم خصم المبلغ ولكن الطلب لم يكتمل...</td>
+                    <td><span class="status-unread" id="status-5">غير مقروءة</span></td>
+                    <td>18/03/2026 11:30</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="markAsRead(5)">تعليم كمقروءة</button>
+                            <button class="btn btn-danger" onclick="deleteMessage(5)">حذف</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="message-6">
+                    <td>ليلى عبدالله</td>
+                    <td>laila@example.com</td>
+                    <td>استفسار عن خدمة PR Core</td>
+                    <td class="message-preview">أود معرفة المزيد عن مراحل العمل في خدمة PR Core، وهل تتضمن تصميم شعار كامل...</td>
+                    <td><span class="status-read" id="status-6">مقروءة</span></td>
+                    <td>17/03/2026 16:45</td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn btn-secondary" onclick="markAsUnread(6)">تعليم كغير مقروءة</button>
+                            <button class="btn btn-danger" onclick="deleteMessage(6)">حذف</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a href="#">« السابق</a>
+            <span class="active">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">التالي »</a>
+        </div>
+    </div>
+
+    <script>
+        // دالة تعليم الرسالة كمقروءة
+        function markAsRead(messageId) {
+            var statusSpan = document.getElementById('status-' + messageId);
+            var row = document.getElementById('message-' + messageId);
+            var actionCell = row.querySelector('td:last-child .actions');
+            
+            // تغيير الحالة
+            statusSpan.className = 'status-read';
+            statusSpan.textContent = 'مقروءة';
+            
+            // تحديث الأزرار
+            actionCell.innerHTML = `
+                <button class="btn btn-secondary" onclick="markAsUnread(${messageId})">تعليم كغير مقروءة</button>
+                <button class="btn btn-danger" onclick="deleteMessage(${messageId})">حذف</button>
+            `;
+            
+            alert('تم تعليم الرسالة كمقروءة');
+        }
+
+        // دالة تعليم الرسالة كغير مقروءة
+        function markAsUnread(messageId) {
+            var statusSpan = document.getElementById('status-' + messageId);
+            var row = document.getElementById('message-' + messageId);
+            var actionCell = row.querySelector('td:last-child .actions');
+            
+            // تغيير الحالة
+            statusSpan.className = 'status-unread';
+            statusSpan.textContent = 'غير مقروءة';
+            
+            // تحديث الأزرار
+            actionCell.innerHTML = `
+                <button class="btn btn-primary" onclick="markAsRead(${messageId})">تعليم كمقروءة</button>
+                <button class="btn btn-danger" onclick="deleteMessage(${messageId})">حذف</button>
+            `;
+            
+            alert('تم تعليم الرسالة كغير مقروءة');
+        }
+
+        // دالة حذف الرسالة
+        function deleteMessage(messageId) {
+            if (confirm('هل أنت متأكد من حذف هذه الرسالة؟')) {
+                var row = document.getElementById('message-' + messageId);
+                row.remove();
+                alert('تم حذف الرسالة بنجاح');
+            }
+        }
+    </script>
+</body>
+</html>

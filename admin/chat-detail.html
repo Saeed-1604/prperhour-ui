@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المحادثة - PR Per Hour</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* السهم للعودة */
+        .arrow-wrapper {
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            text-align: right;
+        }
+
+        .circle-arrow {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #C4860B;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-right: -5px;
+        }
+
+        .circle-arrow:hover {
+            background-color: #8B5D00;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .circle-arrow a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        /* بطاقة رأس المحادثة */
+        .chat-header {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .chat-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .chat-title h1 {
+            color: #C4860B;
+            font-size: 24px;
+        }
+
+        .order-badge {
+            background: #C4860B;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .chat-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .chat-status.open {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .chat-status.closed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .admin-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-btn.open {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #a3d8a3;
+        }
+
+        .admin-btn.open:hover {
+            background: #c3e6cb;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.close {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c2c2;
+        }
+
+        .admin-btn.close:hover {
+            background: #f1b0b0;
+            transform: translateY(-2px);
+        }
+
+        .chat-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .chat-meta span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* منطقة الرسائل */
+        .messages-area {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .message.admin {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 15px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .message.admin .message-bubble {
+            background: #f0f0f0;
+            color: #333;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #C4860B 0%, #8B5D00 100%);
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-sender {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #888;
+        }
+
+        .message.user .message-sender {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .message-content {
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            text-align: left;
+            color: #999;
+        }
+
+        .message.user .message-time {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* نموذج إرسال رسالة جديدة */
+        .reply-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 25px;
+        }
+
+        .reply-box h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .reply-form {
+            display: flex;
+            gap: 15px;
+        }
+
+        .reply-form textarea {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .reply-form textarea:focus {
+            outline: none;
+            border-color: #C4860B;
+            box-shadow: 0 0 0 3px rgba(196, 134, 11, 0.1);
+        }
+
+        .reply-form button {
+            background: linear-gradient(135deg, #C4860B 0%, #8B5D00 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 40px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-end;
+            min-width: 120px;
+            height: 50px;
+        }
+
+        .reply-form button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 134, 11, 0.3);
+        }
+
+        .reply-box.closed {
+            background: #f9f9f9;
+            border: 1px dashed #999;
+        }
+
+        .reply-box.closed p {
+            color: #666;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .chat-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .chat-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .reply-form {
+                flex-direction: column;
+            }
+            
+            .reply-form button {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .admin-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- السهم للعودة لصفحة المحادثات -->
+        <div class="arrow-wrapper">
+            <div class="circle-arrow">
+                <a href="chats.html" title="العودة للمحادثات">→</a>
+            </div>
+        </div>
+
+        <!-- رأس المحادثة -->
+        <div class="chat-header">
+            <div class="chat-title">
+                <div>
+                    <h1>محادثة مع: أحمد محمد</h1>
+                    <span class="chat-status open" id="chatStatus">مفتوحة</span>
+                </div>
+                <span class="order-badge">طلب #ORD-001</span>
+            </div>
+
+            <!-- أزرار التحكم للدكتورة فقط -->
+            <div class="admin-controls" id="adminControls">
+                <button class="admin-btn open" onclick="openChat()" id="openBtn" style="display: none;">فتح المحادثة</button>
+                <button class="admin-btn close" onclick="closeChat()" id="closeBtn">غلق المحادثة</button>
+            </div>
+
+            <div class="chat-meta">
+                <div>الخدمة: <span>استشارة سريعة</span></div>
+                <div>تاريخ بدء المحادثة: <span>20 مارس 2026</span></div>
+                <div>آخر نشاط: <span>منذ 25 دقيقة</span></div>
+            </div>
+        </div>
+
+        <!-- منطقة الرسائل -->
+        <div class="messages-area" id="messagesArea">
+            <!-- رسالة من المستخدم -->
+            <div class="message user">
+                <div class="message-bubble">
+                    <div class="message-sender">أحمد محمد</div>
+                    <div class="message-content">
+                        السلام عليكم، لدي استفسار بخصوص الاستشارة. أريد مناقشة بعض التفاصيل قبل بدء العمل.
+                    </div>
+                    <div class="message-time">20 مارس 2026 - 10:30 ص</div>
+                </div>
+            </div>
+
+            <!-- رسالة من الدكتورة (أدمن) -->
+            <div class="message admin">
+                <div class="message-bubble">
+                    <div class="message-sender">د. فاتنة معلي</div>
+                    <div class="message-content">
+                        وعليكم السلام ورحمة الله. بالتأكيد، يسعدني مناقشة التفاصيل. ماذا تريد أن تعرف بالضبط؟
+                    </div>
+                    <div class="message-time">20 مارس 2026 - 10:35 ص</div>
+                </div>
+            </div>
+
+            <!-- رسالة من المستخدم -->
+            <div class="message user">
+                <div class="message-bubble">
+                    <div class="message-sender">أحمد محمد</div>
+                    <div class="message-content">
+                        أريد التأكد من أن الاستشارة ستكون مخصصة لمشروعي بالكامل وليست عامة. وهل هناك متابعة بعد الرد؟
+                    </div>
+                    <div class="message-time">20 مارس 2026 - 10:40 ص</div>
+                </div>
+            </div>
+
+            <!-- رسالة من الدكتورة -->
+            <div class="message admin">
+                <div class="message-bubble">
+                    <div class="message-sender">د. فاتنة معلي</div>
+                    <div class="message-content">
+                        نعم، الاستشارة مخصصة بالكامل لسؤالك المحدد. تحصل على تشخيص دقيق للمشكلة وحل عملي وتوصيات قابلة للتطبيق. وتشمل متابعة واحدة بعد الرد. يمكنك بعدها حجز استشارة أخرى إذا كان لديك سؤال جديد.
+                    </div>
+                    <div class="message-time">20 مارس 2026 - 10:45 ص</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- نموذج إرسال رسالة جديدة (يظهر فقط إذا كانت المحادثة مفتوحة) -->
+        <div class="reply-box" id="replyBox">
+            <h3>إرسال رد</h3>
+            <div class="reply-form">
+                <textarea placeholder="اكتب ردك هنا..." id="messageInput"></textarea>
+                <button onclick="sendMessage()" id="sendBtn">إرسال</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chatOpen = true; // حالة المحادثة (افتراضياً مفتوحة)
+
+        // دالة فتح المحادثة
+        function openChat() {
+            chatOpen = true;
+            document.getElementById('chatStatus').className = 'chat-status open';
+            document.getElementById('chatStatus').textContent = 'مفتوحة';
+            document.getElementById('openBtn').style.display = 'none';
+            document.getElementById('closeBtn').style.display = 'inline-block';
+            document.getElementById('replyBox').style.display = 'block';
+        }
+
+        // دالة غلق المحادثة
+        function closeChat() {
+            chatOpen = false;
+            document.getElementById('chatStatus').className = 'chat-status closed';
+            document.getElementById('chatStatus').textContent = 'مغلقة';
+            document.getElementById('openBtn').style.display = 'inline-block';
+            document.getElementById('closeBtn').style.display = 'none';
+            document.getElementById('replyBox').style.display = 'none';
+            alert('تم غلق المحادثة. لن يتمكن العميل من إرسال رسائل جديدة.');
+        }
+
+        // دالة إرسال رسالة
+        function sendMessage() {
+            var input = document.getElementById('messageInput');
+            var message = input.value.trim();
+            
+            if (message === '') {
+                alert('الرجاء كتابة رسالة');
+                return;
+            }
+            
+            alert('تم إرسال الرسالة (نسخة تجريبية)');
+            input.value = '';
+        }
+
+        // تمرير تلقائي لآخر رسالة عند فتح الصفحة
+        window.onload = function() {
+            var messagesArea = document.getElementById('messagesArea');
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جميع المحادثات - لوحة التحكم</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        header { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        h1 { color: #333; font-size: 24px; margin-bottom: 10px; }
+        .back-link { color: #C4860B; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 10px; }
+        .back-link:hover { text-decoration: underline; }
+        .back-link:before { content: "← "; }
+        
+        .chat-item { background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-right: 4px solid #C4860B; }
+        .chat-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; }
+        .chat-user { font-weight: bold; color: #333; font-size: 16px; }
+        .chat-meta { display: flex; gap: 15px; }
+        .chat-service { background: #C4860B; color: white; padding: 3px 10px; border-radius: 5px; font-size: 12px; }
+        .chat-time { color: #888; font-size: 12px; }
+        .chat-message { color: #666; line-height: 1.6; font-size: 14px; margin-bottom: 10px; background: #f9f9f9; padding: 15px; border-radius: 5px; }
+        .chat-footer { display: flex; gap: 10px; padding-top: 15px; border-top: 1px solid #f0f0f0; }
+        .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #C4860B; color: white; }
+        .btn-primary:hover { background: #8B5D00; }
+        .btn-secondary { background: #f0f0f0; color: #333; }
+        .btn-secondary:hover { background: #e0e0e0; }
+        
+        .empty { text-align: center; padding: 40px; color: #999; background: white; border-radius: 10px; }
+        
+        .pagination { margin-top: 20px; text-align: center; padding: 20px; background: white; border-radius: 10px; }
+        .pagination a, .pagination span { display: inline-block; padding: 8px 12px; margin: 0 5px; border-radius: 5px; }
+        .pagination a { background: #C4860B; color: white; text-decoration: none; }
+        .pagination a:hover { background: #8B5D00; }
+        .pagination .active { background: #333; color: white; }
+        
+        @media (max-width: 768px) {
+            .chat-header { flex-direction: column; gap: 10px; }
+            .chat-meta { flex-direction: column; gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="dashboard.html" class="back-link">العودة إلى لوحة التحكم</a>
+            <h1>جميع المحادثات</h1>
+        </header>
+
+        <div class="chat-item">
+            <div class="chat-header">
+                <div class="chat-user">أحمد محمد</div>
+                <div class="chat-meta">
+                    <span class="chat-service">استشارة سريعة</span>
+                    <span class="chat-time">20/03/2026 14:30</span>
+                </div>
+            </div>
+            <div class="chat-message">
+                السلام عليكم، لدي استفسار بخصوص استشارتي.      
+            </div>
+            <div class="chat-footer">
+                <a href="chat-detail.html?order=ORD-001" class="btn btn-primary">عرض المحادثة كاملة</a>
+                <a href="#" class="btn btn-secondary" onclick="alert('تم وضع علامة كمقروء')">تحديد كمقروء</a>
+            </div>
+        </div>
+
+        <div class="chat-item">
+            <div class="chat-header">
+                <div class="chat-user">سارة علي</div>
+                <div class="chat-meta">
+                    <span class="chat-service">باقة المحتوى الأساسية</span>
+                    <span class="chat-time">20/03/2026 11:15</span>
+                </div>
+            </div>
+            <div class="chat-message">
+                شكراً لكم على الباقة الرائعة. أريد إضافة تعديل بسيط على المنشورات. هل يمكنني إرسال الملاحظات الآن؟
+            </div>
+            <div class="chat-footer">
+                <a href="chat-detail.html?order=ORD-002" class="btn btn-primary">عرض المحادثة كاملة</a>
+                <a href="#" class="btn btn-secondary" onclick="alert('تم وضع علامة كمقروء')">تحديد كمقروء</a>
+            </div>
+        </div>
+
+        <div class="chat-item">
+            <div class="chat-header">
+                <div class="chat-user">محمد حسن</div>
+                <div class="chat-meta">
+                    <span class="chat-service">PR Core™</span>
+                    <span class="chat-time">19/03/2026 09:45</span>
+                </div>
+            </div>
+            <div class="chat-message">
+                أتمنى معرفة المزيد عن خيارات الألوان المتاحة للهوية البصرية. هل يمكنكم إرسال بعض الأمثلة؟
+            </div>
+            <div class="chat-footer">
+                <a href="chat-detail.html?order=ORD-003" class="btn btn-primary">عرض المحادثة كاملة</a>
+                <a href="#" class="btn btn-secondary" onclick="alert('تم وضع علامة كمقروء')">تحديد كمقروء</a>
+            </div>
+        </div>
+
+        <div class="chat-item">
+            <div class="chat-header">
+                <div class="chat-user">نورا أحمد</div>
+                <div class="chat-meta">
+                    <span class="chat-service">Ad Account Rescue</span>
+                    <span class="chat-time">19/03/2026 16:20</span>
+                </div>
+            </div>
+            <div class="chat-message">
+                تم إيقاف حسابي الإعلاني فجأة. أرفقت لكم لقطة شاشة للخطأ. أرجو المساعدة بشكل عاجل.
+            </div>
+            <div class="chat-footer">
+                <a href="chat-detail.html?order=ORD-004" class="btn btn-primary">عرض المحادثة كاملة</a>
+                <a href="#" class="btn btn-secondary" onclick="alert('تم وضع علامة كمقروء')">تحديد كمقروء</a>
+            </div>
+        </div>
+
+        <div class="chat-item">
+            <div class="chat-header">
+                <div class="chat-user">خالد عمر</div>
+                <div class="chat-meta">
+                    <span class="chat-service">الخطة الاستراتيجية</span>
+                    <span class="chat-time">18/03/2026 13:10</span>
+                </div>
+            </div>
+            <div class="chat-message">
+                وصلتني الخطة وشكراً لكم. فقط لدي سؤال بخصوص جدول النشر، هل يمكن تعديل مواعيد بعض المنشورات؟
+            </div>
+            <div class="chat-footer">
+                <a href="chat-detail.html?order=ORD-005" class="btn btn-primary">عرض المحادثة كاملة</a>
+                <a href="#" class="btn btn-secondary" onclick="alert('تم وضع علامة كمقروء')">تحديد كمقروء</a>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <a href="#">« السابق</a>
+            <span class="active">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">التالي »</a>
+        </div>
+    </div>
+</body>
+</html>

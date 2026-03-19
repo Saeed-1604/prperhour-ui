@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جميع الطلبات - لوحة التحكم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        /* الحاوية الرئيسية */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* القائمة الجانبية */
+        .sidebar {
+            width: 220px;
+            background: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* منطقة الشعار */
+        .logo-section {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            background: #0f0f0f;
+        }
+
+        .logo-section img {
+            width: 160px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+        }
+
+        .logo-section h1 {
+            color: #C4860B;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin: 10px 0 5px;
+        }
+
+        .logo-section p {
+            color: #888;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* عناصر القائمة */
+        .nav-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 14px 25px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+            margin: 5px 0;
+        }
+
+        .nav-item:hover {
+            background: #2a2a2a;
+            color: #C4860B;
+            border-right-color: #C4860B;
+        }
+
+        .nav-item.active {
+            background: #2a2a2a;
+            color: #C4860B;
+            border-right-color: #C4860B;
+        }
+
+        /* معلومات المدير */
+        .admin-footer {
+            padding: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0f0f0f;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #C4860B, #8B5D00);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .admin-info h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .admin-info span {
+            color: #C4860B;
+            font-size: 12px;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            margin-right: 220px;
+            padding: 30px;
+        }
+
+        /* شريط العلوي */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-title h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .page-title p {
+            color: #888;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .date-badge {
+            background: #fff9e6;
+            color: #8B5D00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid #C4860B;
+        }
+
+        /* أيقونة الإعدادات */
+        .settings-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #C4860B, #8B5D00);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .settings-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(196, 134, 11, 0.3);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: right;
+        }
+
+        th {
+            background: #fafafa;
+            color: #888;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-under_review {
+            background: #ffeeba;
+            color: #856404;
+        }
+
+        .badge-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-in_progress {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .badge-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .status-form select {
+            padding: 5px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .status-form button {
+            background: #C4860B;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .status-form button:hover {
+            background: #8B5D00;
+        }
+
+        .action-link {
+            color: #C4860B;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-right: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+                z-index: 1000;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-right: 0;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- القائمة الجانبية -->
+        <div class="sidebar">
+            <div class="logo-section">
+                <img src="../images/logo.png" alt="PR Per Hour" onerror="this.src='https://via.placeholder.com/160x80/C4860B/ffffff?text=PR'">
+                <h1>PR PER HOUR</h1>
+                <p>Making Every Hour Count</p>
+            </div>
+
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-item">الرئيسية</a>
+                <a href="orders.html" class="nav-item active">الطلبات</a>
+                <a href="customers.html" class="nav-item">العملاء</a>
+                <a href="services.html" class="nav-item">الخدمات</a>
+                <a href="chats.html" class="nav-item">المحادثات</a>
+                <a href="messages.html" class="nav-item">الرسائل</a>
+                <a href="reports.html" class="nav-item">التقارير</a>
+                <a href="settings.html" class="nav-item">الإعدادات</a>
+            </div>
+
+            <div class="admin-footer">
+                <div class="admin-avatar">PR</div>
+                <div class="admin-info">
+                    <h4>إدارة النظام</h4>
+                    <span>مشرف</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- الشريط العلوي -->
+            <div class="top-bar">
+                <div class="page-title">
+                    <h2>إدارة الطلبات</h2>
+                    <p>عرض وتحديث حالة جميع الطلبات</p>
+                </div>
+                <div class="top-bar-right">
+                    <div class="date-badge">
+                        20/03/2026
+                    </div>
+                    <a href="settings.html" class="settings-icon" title="الإعدادات">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m3.08 3.08l4.24 4.24M1 12h6m6 0h6m-17.78 7.78l4.24-4.24m3.08-3.08l4.24-4.24"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="container">
+                <h1>جميع الطلبات</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>العميل</th>
+                            <th>الخدمة</th>
+                            <th>الحالة</th>
+                            <th>تاريخ الطلب</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD-001</td>
+                            <td>
+                                <strong>أحمد محمد</strong><br>
+                                <small style="color:#888;">ahmed@example.com</small>
+                            </td>
+                            <td>استشارة سريعة</td>
+                            <td><span class="badge badge-pending">قيد المراجعة</span></td>
+                            <td>2026-03-19 14:30</td>
+                            <td>
+                                <a href="#" class="action-link" onclick="alert('عرض الطلب')">عرض</a>
+                                <div class="status-form">
+                                    <select onchange="updateStatus(this, '#ORD-001')">
+                                        <option value="pending" selected>قيد المراجعة</option>
+                                        <option value="under_review">تحت المراجعة</option>
+                                        <option value="paid">تم الدفع</option>
+                                        <option value="in_progress">جاري التنفيذ</option>
+                                        <option value="completed">مكتمل</option>
+                                    </select>
+                                    <button onclick="updateStatusFromButton('#ORD-001')">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-002</td>
+                            <td>
+                                <strong>سارة علي</strong><br>
+                                <small style="color:#888;">sara@example.com</small>
+                            </td>
+                            <td>باقة المحتوى الأساسية</td>
+                            <td><span class="badge badge-in_progress">جاري التنفيذ</span></td>
+                            <td>2026-03-18 10:15</td>
+                            <td>
+                                <a href="#" class="action-link" onclick="alert('عرض الطلب')">عرض</a>
+                                <div class="status-form">
+                                    <select onchange="updateStatus(this, '#ORD-002')">
+                                        <option value="pending">قيد المراجعة</option>
+                                        <option value="under_review">تحت المراجعة</option>
+                                        <option value="paid">تم الدفع</option>
+                                        <option value="in_progress" selected>جاري التنفيذ</option>
+                                        <option value="completed">مكتمل</option>
+                                    </select>
+                                    <button onclick="updateStatusFromButton('#ORD-002')">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-003</td>
+                            <td>
+                                <strong>محمد حسن</strong><br>
+                                <small style="color:#888;">mohamed@example.com</small>
+                            </td>
+                            <td>PR Core™</td>
+                            <td><span class="badge badge-paid">تم الدفع</span></td>
+                            <td>2026-03-17 09:45</td>
+                            <td>
+                                <a href="#" class="action-link" onclick="alert('عرض الطلب')">عرض</a>
+                                <div class="status-form">
+                                    <select onchange="updateStatus(this, '#ORD-003')">
+                                        <option value="pending">قيد المراجعة</option>
+                                        <option value="under_review">تحت المراجعة</option>
+                                        <option value="paid" selected>تم الدفع</option>
+                                        <option value="in_progress">جاري التنفيذ</option>
+                                        <option value="completed">مكتمل</option>
+                                    </select>
+                                    <button onclick="updateStatusFromButton('#ORD-003')">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-004</td>
+                            <td>
+                                <strong>نورا أحمد</strong><br>
+                                <small style="color:#888;">noura@example.com</small>
+                            </td>
+                            <td>Ad Account Rescue</td>
+                            <td><span class="badge badge-under_review">تحت المراجعة</span></td>
+                            <td>2026-03-16 16:20</td>
+                            <td>
+                                <a href="#" class="action-link" onclick="alert('عرض الطلب')">عرض</a>
+                                <div class="status-form">
+                                    <select onchange="updateStatus(this, '#ORD-004')">
+                                        <option value="pending">قيد المراجعة</option>
+                                        <option value="under_review" selected>تحت المراجعة</option>
+                                        <option value="paid">تم الدفع</option>
+                                        <option value="in_progress">جاري التنفيذ</option>
+                                        <option value="completed">مكتمل</option>
+                                    </select>
+                                    <button onclick="updateStatusFromButton('#ORD-004')">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-005</td>
+                            <td>
+                                <strong>خالد عمر</strong><br>
+                                <small style="color:#888;">khalid@example.com</small>
+                            </td>
+                            <td>الخطة الاستراتيجية</td>
+                            <td><span class="badge badge-completed">مكتمل</span></td>
+                            <td>2026-03-15 11:30</td>
+                            <td>
+                                <a href="#" class="action-link" onclick="alert('عرض الطلب')">عرض</a>
+                                <div class="status-form">
+                                    <select onchange="updateStatus(this, '#ORD-005')">
+                                        <option value="pending">قيد المراجعة</option>
+                                        <option value="under_review">تحت المراجعة</option>
+                                        <option value="paid">تم الدفع</option>
+                                        <option value="in_progress">جاري التنفيذ</option>
+                                        <option value="completed" selected>مكتمل</option>
+                                    </select>
+                                    <button onclick="updateStatusFromButton('#ORD-005')">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // دالة تحديث الحالة عند اختيار قيمة من القائمة المنسدلة
+        function updateStatus(selectElement, orderId) {
+            var status = selectElement.value;
+            var statusText = '';
+            
+            // تحويل قيمة الحالة إلى نص عربي
+            switch(status) {
+                case 'pending': statusText = 'قيد المراجعة'; break;
+                case 'under_review': statusText = 'تحت المراجعة'; break;
+                case 'paid': statusText = 'تم الدفع'; break;
+                case 'in_progress': statusText = 'جاري التنفيذ'; break;
+                case 'completed': statusText = 'مكتمل'; break;
+            }
+            
+            // العثور على عنصر الحالة في نفس الصف
+            var row = selectElement.closest('tr');
+            var statusCell = row.querySelector('td:nth-child(4) span');
+            
+            // تحديث النص والكلاس
+            statusCell.textContent = statusText;
+            statusCell.className = 'badge badge-' + status;
+            
+            // رسالة تأكيد
+            alert('تم تحديث حالة الطلب ' + orderId + ' إلى: ' + statusText);
+        }
+
+        // دالة تحديث الحالة عند الضغط على زر التحديث
+        function updateStatusFromButton(orderId) {
+            var row = event.target.closest('tr');
+            var select = row.querySelector('select');
+            var status = select.value;
+            var statusText = '';
+            
+            // تحويل قيمة الحالة إلى نص عربي
+            switch(status) {
+                case 'pending': statusText = 'قيد المراجعة'; break;
+                case 'under_review': statusText = 'تحت المراجعة'; break;
+                case 'paid': statusText = 'تم الدفع'; break;
+                case 'in_progress': statusText = 'جاري التنفيذ'; break;
+                case 'completed': statusText = 'مكتمل'; break;
+            }
+            
+            // العثور على عنصر الحالة في نفس الصف
+            var statusCell = row.querySelector('td:nth-child(4) span');
+            
+            // تحديث النص والكلاس
+            statusCell.textContent = statusText;
+            statusCell.className = 'badge badge-' + status;
+            
+            // رسالة تأكيد
+            alert('تم تحديث حالة الطلب ' + orderId + ' إلى: ' + statusText);
+        }
+    </script>
+</body>
+</html>

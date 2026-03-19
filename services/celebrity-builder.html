@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Builder - PR Per Hour</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .arrow-wrapper {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        
+        .circle-arrow {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #C4860B;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .circle-arrow:hover {
+            background-color: #8B5D00;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .circle-arrow a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #C4860B;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .section p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            background: #C4860B;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #8B5D00;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #C4860B;
+        }
+        
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="arrow-wrapper">
+        <div class="circle-arrow">
+            <a href="index.html" title="العودة للخدمات">→</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Celebrity Builder™</h1>
+        
+        <div class="section">
+            <h2>الوصف</h2>
+            <p>خدمة متكاملة لصناعة المشاهير وبناء البراند الشخصي من الصفر أو إعادة إطلاقه باحتراف. موجهة للأفراد الذين يمتلكون موهبة، حضوراً، أو رسالة ويرغبون بتحويلها إلى شخصية مؤثرة ومعروفة.</p>
+            <p><small>هذه الخدمة تخضع لتقييم أولي للموهبة.</small></p>
+        </div>
+        
+        <div class="section">
+            <h2>المخرجات</h2>
+            <p><strong>بناء الهوية:</strong> تحديد نوع الشخصية الإعلامية، الرسالة، الجمهور، أسلوب الظهور.</p>
+            <p><strong>التدريب:</strong> تدريب عملي على الوقوف أمام الكاميرا، التحكم بالصوت، لغة الجسد، كسر الرهبة.</p>
+            <p><strong>الإنتاج:</strong> تصوير احترافي داخل استوديو، مونتاج احترافي، تجهيز محتوى للنشر الفوري.</p>
+            <p><strong>الإطلاق:</strong> إنشاء وإدارة الحسابات، خطة إطلاق أولية، دعم للوصول.</p>
+        </div>
+        
+        <div class="section">
+            <h2>السعر</h2>
+            <p>يُحدد حسب مستوى الإنتاج وعدد جلسات التصوير والتدريب (بعد تقييم الشخصية).</p>
+        </div>
+        
+        <div class="section">
+            <h2>سياسة التنفيذ</h2>
+            <p>يخضع المتقدم لتقييم أولي، لا يتم البدء قبل الموافقة على الخطة والسعر، تشمل جولة تعديل واحدة، لا استرجاع بعد بدء التصوير.</p>
+        </div>
+        
+        <div class="section">
+            <h2>مدة التنفيذ</h2>
+            <p>20-30 يوم عمل حسب جاهزية الشخص وجدول التصوير</p>
+        </div>
+
+        <div class="section">
+            <h2>اطلب هذه الخدمة (طلب تقييم أولي)</h2>
+            <form method="POST" action="#" onsubmit="alert('تم إرسال طلب التقييم (نسخة تجريبية)'); return false;">
+                <input type="hidden" name="service_id" value="5">
+                <input type="hidden" name="service_name" value="Celebrity Builder">
+
+                <div class="form-group">
+                    <label class="required">الاسم الكامل</label>
+                    <input type="text" name="full_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">العمر</label>
+                    <input type="number" name="age" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">نوع الموهبة أو المجال</label>
+                    <input type="text" name="talent" required placeholder="مثال: غناء، تمثيل، تقديم، موهبة فنية، إلخ">
+                </div>
+
+                <div class="form-group">
+                    <label>رابط حساب حالي (إن وجد)</label>
+                    <input type="url" name="current_account">
+                </div>
+
+                <div class="form-group">
+                    <label class="required">لماذا تريد أن تصبح شخصية مؤثرة؟</label>
+                    <textarea name="motivation" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">هل تستطيع الالتزام بالتصوير؟</label>
+                    <select name="commitment" required>
+                        <option value="">-- اختر --</option>
+                        <option value="yes">نعم</option>
+                        <option value="maybe">ربما حسب الجدول</option>
+                        <option value="no">لا</option>
+                    </select>
+                </div>
+
+                <div class="section">
+                    <h2>بيانات التواصل</h2>
+                    
+                    <div class="form-group">
+                        <label class="required">البريد الإلكتروني</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">رقم الهاتف</label>
+                        <input type="text" name="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">
+                        <input type="checkbox" name="agree" value="1" required> 
+                        أوافق على <a href="#" style="color:#C4860B;">شروط الخدمة</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn">إرسال طلب التقييم</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

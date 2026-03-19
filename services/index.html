@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدماتنا - PR Per Hour</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* رأس الصفحة */
+        .page-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        /* السهم في الأعلى - جهة اليمين */
+        .arrow-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+        
+        /* الدائرة حول السهم */
+        .circle-arrow {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #C4860B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .circle-arrow:hover {
+            background-color: #8B5D00;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .circle-arrow a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .header-logo {
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        .header-logo img {
+            height: 200px;
+            width: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #C4860B;
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+        }
+        .service-card h3 {
+            color: #C4860B;
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .service-price {
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #C4860B;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #8B5D00;
+        }
+        .footer {
+            text-align: center;
+            color: #888;
+            margin-top: 50px;
+            padding: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- رأس الصفحة -->
+    <div class="page-header">
+        <!-- السهم في الأعلى - جهة اليمين -->
+        <div class="arrow-container">
+            <div class="circle-arrow">
+                <a href="../index.html" title="العودة للرئيسية">→</a>
+            </div>
+        </div>
+        
+        <!-- الشعار في الوسط -->
+        <div class="header-logo">
+            <img src="../images/logo.png" alt="PR Per Hour" onerror="this.src='https://via.placeholder.com/400x200/C4860B/ffffff?text=PR+Per+Hour'">
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>خدماتنا</h1>
+
+        <div class="services-grid">
+            <!-- الصف الأول -->
+            <div class="service-card">
+                <h3>استشارة سريعة</h3>
+                <p>استشارة قصيرة لسؤال واحد فقط، مع حل عملي واضح وتوصيات جاهزة. الرد خلال 24 ساعة.</p>
+                <div class="service-price">$10</div>
+                <a href="consultation.html" class="btn">اطلب الآن</a>
+            </div>
+            
+            <div class="service-card">
+                <h3>Ad Account Rescue™</h3>
+                <p>حل مشكلات الحسابات الإعلامية: إيقاف، تقييد، رفض إعلانات، مشاكل دفع</p>
+                <div class="service-price">يبدأ من $25</div>
+                <a href="ad-rescue.html" class="btn">اطلب الآن</a>
+            </div>
+            
+            <div class="service-card">
+                <h3>باقة المحتوى الأساسية</h3>
+                <p>نصوص جاهزة احترافية: 10 منشورات + 5 سكريبتات ريل + 5 كاروسيل + 20 Hook + 20 CTA</p>
+                <div class="service-price">$80</div>
+                <a href="starter-package.html" class="btn">اطلب الآن</a>
+            </div>
+
+            <!-- الصف الثاني -->
+            <div class="service-card">
+                <h3>الخطة الاستراتيجية</h3>
+                <p>خطة محتوى شهرية متكاملة: تحليل كامل، 30 منشور، جدول نشر، وهوية بصرية مكتوبة</p>
+                <div class="service-price">$100</div>
+                <a href="growth-strategy.html" class="btn">اطلب الآن</a>
+            </div>
+            
+            <div class="service-card">
+                <h3>Celebrity Builder™</h3>
+                <p>صناعة المشاهير وبناء العلامة الشخصية باحتراف: تدريب، إنتاج، وإطلاق</p>
+                <div class="service-price">حسب المشروع</div>
+                <a href="celebrity-builder.html" class="btn">اطلب الآن</a>
+            </div>
+            
+            <div class="service-card">
+                <h3>PR Core™</h3>
+                <p>بناء الهوية والبراند: الغاية، الرؤية، الرسالة، القيم، شخصية العلامة، وقصة العلامة</p>
+                <div class="service-price">يبدأ من $2000</div>
+                <a href="pr-core.html" class="btn">اطلب الآن</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 PR Per Hour - Making Every Hour Count
+    </div>
+</body>
+</html>

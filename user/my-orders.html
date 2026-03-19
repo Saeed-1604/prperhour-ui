@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلباتي - PR Per Hour</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #C4860B;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .no-orders {
+            text-align: center;
+            color: #666;
+            padding: 50px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            font-size: 18px;
+            border: 2px dashed #C4860B;
+        }
+        
+        .orders-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .order-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-right: 4px solid #C4860B;
+        }
+        
+        .order-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .order-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .order-status {
+            background: #C4860B;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .back-link a {
+            color: #C4860B;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>طلباتي</h1>
+        
+        <!-- رسالة عدم وجود طلبات (افتراضياً) -->
+        <div class="no-orders">
+            لم يتم طلب أي خدمة بعد
+        </div>
+        
+        <!-- في حالة وجود طلبات (مخفية حالياً) 
+        <ul class="orders-list">
+            <li class="order-item">
+                <div class="order-info">
+                    <h3>استشارة سريعة</h3>
+                    <p>تاريخ الطلب: 15 مارس 2026</p>
+                    <p>رقم الطلب: #ORD-001</p>
+                </div>
+                <span class="order-status">قيد التنفيذ</span>
+            </li>
+            <li class="order-item">
+                <div class="order-info">
+                    <h3>باقة المحتوى الأساسية</h3>
+                    <p>تاريخ الطلب: 10 مارس 2026</p>
+                    <p>رقم الطلب: #ORD-002</p>
+                </div>
+                <span class="order-status">مكتمل</span>
+            </li>
+        </ul>
+        -->
+        
+        <div class="back-link">
+            <a href="../index.html">← العودة إلى الصفحة الرئيسية</a>
+        </div>
+    </div>
+</body>
+</html>

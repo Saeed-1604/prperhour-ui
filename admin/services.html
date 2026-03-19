@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات - لوحة التحكم</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; }
+        
+        header { background: white; padding: 20px; border-bottom: 1px solid #f0f0f0; }
+        h1 { color: #333; font-size: 24px; margin-bottom: 10px; }
+        .back-link { color: #C4860B; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 10px; }
+        .back-link:hover { text-decoration: underline; }
+        .back-link:before { content: "← "; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #C4860B; color: white; padding: 15px; text-align: right; font-weight: 600; }
+        td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
+        tr:hover { background: #f9f9f9; }
+        
+        .badge { padding: 8px 15px; border-radius: 20px; font-size: 13px; display: inline-block; background: #C4860B; color: white; }
+        
+        .service-description { color: #666; font-size: 13px; max-width: 300px; line-height: 1.5; }
+        
+        .empty { text-align: center; padding: 40px; color: #999; background: white; border-radius: 10px; margin: 20px; }
+        
+        .pagination { margin-top: 20px; text-align: center; padding: 20px; border-top: 1px solid #f0f0f0; }
+        .pagination a, .pagination span { display: inline-block; padding: 8px 12px; margin: 0 5px; border-radius: 5px; }
+        .pagination a { background: #C4860B; color: white; text-decoration: none; }
+        .pagination a:hover { background: #8B5D00; }
+        .pagination .active { background: #333; color: white; }
+        
+        @media (max-width: 768px) {
+            .container { overflow-x: auto; }
+            table { min-width: 800px; }
+            .service-description { max-width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="dashboard.html" class="back-link">العودة إلى لوحة التحكم</a>
+            <h1>قائمة الخدمات</h1>
+        </header>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>اسم الخدمة</th>
+                    <th>الوصف المختصر</th>
+                    <th>السعر الافتراضي</th>
+                    <th>عدد الطلبات</th>
+                    <th>تاريخ الإنشاء</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>استشارة سريعة</strong></td>
+                    <td class="service-description">استشارة قصيرة لسؤال واحد مع حل عملي واضح وتوصيات جاهزة خلال 24 ساعة</td>
+                    <td><strong>$10</strong></td>
+                    <td><span class="badge">24</span></td>
+                    <td>01/01/2026</td>
+                </tr>
+                <tr>
+                    <td><strong>Ad Account Rescue™</strong></td>
+                    <td class="service-description">حل مشكلات الحسابات الإعلانية على Meta: إيقاف، تقييد، رفض إعلانات</td>
+                    <td><strong>يبدأ من $25</strong></td>
+                    <td><span class="badge">18</span></td>
+                    <td>01/01/2026</td>
+                </tr>
+                <tr>
+                    <td><strong>باقة المحتوى الأساسية</strong></td>
+                    <td class="service-description">10 منشورات + 5 سكريبتات ريل + 5 كاروسيل + 20 Hook + 20 CTA</td>
+                    <td><strong>$80</strong></td>
+                    <td><span class="badge">15</span></td>
+                    <td>01/01/2026</td>
+                </tr>
+                <tr>
+                    <td><strong>الخطة الاستراتيجية</strong></td>
+                    <td class="service-description">تحليل كامل + 30 يوم محتوى (14 منشور، 8 ريلز، 6 فيديوهات، 6 كاروسيل)</td>
+                    <td><strong>$100</strong></td>
+                    <td><span class="badge">9</span></td>
+                    <td>01/01/2026</td>
+                </tr>
+                <tr>
+                    <td><strong>PR Core™</strong></td>
+                    <td class="service-description">بناء الهوية والبراند: الغاية، الرؤية، الرسالة، القيم، شخصية العلامة</td>
+                    <td><strong>يبدأ من $2000</strong></td>
+                    <td><span class="badge">6</span></td>
+                    <td>01/01/2026</td>
+                </tr>
+                <tr>
+                    <td><strong>Celebrity Builder™</strong></td>
+                    <td class="service-description">صناعة المشاهير: بناء شخصية، تدريب على الظهور، إنتاج احترافي</td>
+                    <td><strong>حسب المشروع</strong></td>
+                    <td><span class="badge">3</span></td>
+                    <td>01/01/2026</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a href="#">« السابق</a>
+            <span class="active">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">التالي »</a>
+        </div>
+    </div>
+</body>
+</html>

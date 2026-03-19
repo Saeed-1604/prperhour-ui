@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقارير - لوحة التحكم</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        header { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        h1 { color: #333; font-size: 24px; margin-bottom: 10px; }
+        .back-link { color: #C4860B; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 10px; }
+        .back-link:hover { text-decoration: underline; }
+        .back-link:before { content: "← "; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.3s; }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(196,134,11,0.2); }
+        .stat-label { color: #888; font-size: 13px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-value { color: #C4860B; font-size: 32px; font-weight: bold; }
+        
+        .report-section { background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .section-title { color: #333; font-size: 18px; font-weight: 600; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #f0f0f0; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: right; padding: 12px 0; color: #888; font-size: 13px; font-weight: 500; border-bottom: 2px solid #f0f0f0; }
+        td { padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
+        
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
+        .badge-pending { background: #fff3cd; color: #856404; }
+        .badge-under_review { background: #e3f2fd; color: #1565c0; }
+        .badge-in_progress { background: #cfe2ff; color: #084298; }
+        .badge-completed { background: #d4edda; color: #155724; }
+        .badge-cancelled { background: #f8d7da; color: #721c24; }
+        
+        .no-data { text-align: center; color: #999; padding: 30px; }
+        
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            table { font-size: 12px; }
+            th, td { padding: 8px 5px; }
+            .badge { padding: 3px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="dashboard.html" class="back-link">العودة إلى لوحة التحكم</a>
+            <h1>التقارير والإحصائيات</h1>
+        </header>
+
+        <!-- بطاقات الإحصائيات -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">إجمالي الإيرادات</div>
+                <div class="stat-value">$7,845.50</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">متوسط سعر الطلب</div>
+                <div class="stat-value">$78.50</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">الطلبات هذا الشهر</div>
+                <div class="stat-value">45</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">إجمالي العملاء</div>
+                <div class="stat-value">89</div>
+            </div>
+        </div>
+
+        <!-- توزيع الطلبات حسب الحالة -->
+        <div class="report-section">
+            <h2 class="section-title">توزيع الطلبات حسب الحالة</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>الحالة</th>
+                        <th>عدد الطلبات</th>
+                        <th>النسبة المئوية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-pending">قيد الانتظار</span></td>
+                        <td><strong>15</strong></td>
+                        <td>15.0%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-under_review">تحت المراجعة</span></td>
+                        <td><strong>22</strong></td>
+                        <td>22.0%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-in_progress">قيد التنفيذ</span></td>
+                        <td><strong>18</strong></td>
+                        <td>18.0%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-completed">مكتمل</span></td>
+                        <td><strong>38</strong></td>
+                        <td>38.0%</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-cancelled">ملغى</span></td>
+                        <td><strong>7</strong></td>
+                        <td>7.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- أعلى العملاء -->
+        <div class="report-section">
+            <h2 class="section-title">أعلى 10 عملاء بعدد الطلبات</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم العميل</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>عدد الطلبات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>أحمد محمد علي</td>
+                        <td>ahmed@example.com</td>
+                        <td><strong>12</strong></td>
+                    </tr>
+                    <tr>
+                        <td>سارة عبدالله خالد</td>
+                        <td>sara@example.com</td>
+                        <td><strong>8</strong></td>
+                    </tr>
+                    <tr>
+                        <td>محمد حسن عمر</td>
+                        <td>mohamed@example.com</td>
+                        <td><strong>7</strong></td>
+                    </tr>
+                    <tr>
+                        <td>نورا أحمد محمود</td>
+                        <td>noura@example.com</td>
+                        <td><strong>6</strong></td>
+                    </tr>
+                    <tr>
+                        <td>خالد عمر يوسف</td>
+                        <td>khalid@example.com</td>
+                        <td><strong>5</strong></td>
+                    </tr>
+                    <tr>
+                        <td>ليلى عبدالله سالم</td>
+                        <td>laila@example.com</td>
+                        <td><strong>4</strong></td>
+                    </tr>
+                    <tr>
+                        <td>عمر خالد إبراهيم</td>
+                        <td>omar@example.com</td>
+                        <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                        <td>فاطمة أحمد علي</td>
+                        <td>fatma@example.com</td>
+                        <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                        <td>يوسف محمود سالم</td>
+                        <td>yousef@example.com</td>
+                        <td><strong>2</strong></td>
+                    </tr>
+                    <tr>
+                        <td>هدى محمد سعيد</td>
+                        <td>huda@example.com</td>
+                        <td><strong>2</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- أعلى الخدمات المطلوبة -->
+        <div class="report-section">
+            <h2 class="section-title">أعلى 10 خدمات مطلوبة</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم الخدمة</th>
+                        <th>عدد الطلبات</th>
+                        <th>النسبة المئوية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>استشارة سريعة</strong></td>
+                        <td>24</td>
+                        <td>24.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ad Account Rescue™</strong></td>
+                        <td>18</td>
+                        <td>18.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>باقة المحتوى الأساسية</strong></td>
+                        <td>15</td>
+                        <td>15.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الخطة الاستراتيجية</strong></td>
+                        <td>9</td>
+                        <td>9.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PR Core™</strong></td>
+                        <td>6</td>
+                        <td>6.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Celebrity Builder™</strong></td>
+                        <td>3</td>
+                        <td>3.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
