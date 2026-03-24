@@ -40,11 +40,17 @@
             margin-bottom: 30px;
         }
         
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+        /* صف الأسماء الثلاثة */
+        .name-row {
+            display: flex;
+            gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .name-field {
+            flex: 1;
+            min-width: 0;
         }
         
         .form-group {
@@ -64,11 +70,13 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
+            box-sizing: border-box;
         }
         
         input:focus {
             outline: none;
             border-color: #C4860B;
+            box-shadow: 0 0 0 3px rgba(196, 134, 11, 0.1);
         }
         
         button {
@@ -109,6 +117,20 @@
             content: " *";
             color: red;
         }
+        
+        /* للجوال */
+        @media (max-width: 600px) {
+            .register-container {
+                padding: 25px;
+            }
+            .name-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .name-field {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -118,37 +140,44 @@
         </div>
         <h2>تسجيل جديد</h2>
 
-        <form method="GET" action="../index.html">
-            <div class="form-row">
-                <div class="form-group">
+        <!-- رسالة خطأ تجريبية (مخفية) 
+        <div class="error">
+            البريد الإلكتروني مستخدم بالفعل
+        </div>
+        -->
+
+        <form id="registerForm">
+            <!-- صف الأسماء الثلاثة (على نفس المستوى) -->
+            <div class="name-row">
+                <div class="name-field">
                     <label class="required">الاسم الأول</label>
-                    <input type="text" name="first_name" required>
+                    <input type="text" name="first_name" id="first_name" required>
                 </div>
                 
-                <div class="form-group">
+                <div class="name-field">
                     <label class="required">اسم الأب</label>
-                    <input type="text" name="father_name" required>
+                    <input type="text" name="father_name" id="father_name" required>
                 </div>
                 
-                <div class="form-group">
+                <div class="name-field">
                     <label class="required">الاسم الأخير</label>
-                    <input type="text" name="last_name" required>
+                    <input type="text" name="last_name" id="last_name" required>
                 </div>
             </div>
             
             <div class="form-group">
                 <label class="required">البريد الإلكتروني</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" id="email" required>
             </div>
             
             <div class="form-group">
                 <label class="required">كلمة المرور</label>
-                <input type="password" name="password" required>
+                <input type="password" name="password" id="password" required>
             </div>
             
             <div class="form-group">
                 <label class="required">تأكيد كلمة المرور</label>
-                <input type="password" name="password_confirmation" required>
+                <input type="password" name="password_confirmation" id="password_confirmation" required>
             </div>
             
             <button type="submit">تسجيل</button>
@@ -158,5 +187,39 @@
             <a href="login.html">لديك حساب؟ سجل دخولك</a>
         </div>
     </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('password_confirmation').value;
+            
+            if (password !== passwordConfirm) {
+                alert('كلمة المرور وتأكيدها غير متطابقين');
+                return;
+            }
+            
+            const userData = {
+                first_name: document.getElementById('first_name').value,
+                father_name: document.getElementById('father_name').value,
+                last_name: document.getElementById('last_name').value,
+                email: document.getElementById('email').value,
+                password: password
+            };
+            
+            const result = await register(userData);
+            
+            if (result.success) {
+                alert('تم التسجيل بنجاح');
+                window.location.href = '../index.html';
+            } else {
+                alert(result.message || 'حدث خطأ في التسجيل');
+            }
+        });
+    </script>
 </body>
 </html>
